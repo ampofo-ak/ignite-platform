@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ignite Church — Sermons & Announcements</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0C0C0E;
+  --surface:#141416;
+  --surface2:#1C1C20;
+  --surface3:#242428;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.12);
+  --text:#F0EDE8;
+  --text-muted:#8A8680;
+  --text-dim:#4A4845;
+  --flame:#E8560A;
+  --flame-light:#F07030;
+  --gold:#C9A84C;
+  --gold-dim:rgba(201,168,76,0.15);
+  --red:#D0242A;
+  --white:#FFFFFF;
+  --radius:12px;
+  --radius-sm:8px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);color:var(--text);
+  min-height:100vh;line-height:1.6;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:2px}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:rgba(12,12,14,0.92);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;height:64px;
+}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none}
+.logo-svg{width:36px;height:36px;flex-shrink:0}
+.logo-text{display:flex;flex-direction:column;line-height:1}
+.logo-text .ig{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--white);letter-spacing:0.01em}
+.logo-text .ch{font-size:0.52rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);font-weight:600;margin-top:1px}
+.nav-links{display:flex;list-style:none;gap:0.25rem}
+.nav-links button{
+  background:none;border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:0.875rem;font-weight:500;
+  color:var(--text-muted);padding:0.45rem 1rem;border-radius:6px;
+  transition:color 0.2s,background 0.2s;
+}
+.nav-links button:hover{color:var(--text);background:var(--surface2)}
+.nav-links button.active{color:var(--white);background:var(--surface2)}
+.nav-cta{
+  background:var(--flame);color:var(--white);border:none;
+  font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;
+  padding:0.5rem 1.2rem;border-radius:6px;cursor:pointer;
+  letter-spacing:0.03em;transition:background 0.2s,transform 0.15s;
+}
+.nav-cta:hover{background:var(--flame-light);transform:translateY(-1px)}
+
+/* ─── PAGES ─── */
+.page{display:none;padding-top:64px;min-height:100vh;animation:fadeIn 0.3s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── HERO ─── */
+.hero{
+  position:relative;overflow:hidden;
+  padding:6rem 2rem 5rem;
+  background:radial-gradient(ellipse 80% 60% at 50% -10%, rgba(232,86,10,0.18) 0%, transparent 70%),
+             radial-gradient(ellipse 60% 40% at 80% 80%, rgba(201,168,76,0.08) 0%, transparent 60%),
+             var(--bg);
+  text-align:center;
+}
+.hero-grid-lines{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+  mask-image:radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--flame);background:rgba(232,86,10,0.1);
+  border:1px solid rgba(232,86,10,0.25);
+  padding:0.3rem 0.85rem;border-radius:20px;margin-bottom:1.75rem;
+}
+.hero h1{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2.4rem,5.5vw,4rem);
+  color:var(--white);line-height:1.1;
+  margin-bottom:1.25rem;max-width:680px;margin-inline:auto;
+}
+.hero h1 em{color:var(--gold);font-style:italic}
+.hero p{
+  color:var(--text-muted);font-size:1rem;
+  max-width:440px;margin:0 auto 2.5rem;font-weight:300;
+}
+.hero-actions{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{
+  background:var(--flame);color:var(--white);
+  border:none;font-family:'DM Sans',sans-serif;
+  font-size:0.875rem;font-weight:600;
+  padding:0.75rem 1.75rem;border-radius:var(--radius-sm);
+  cursor:pointer;transition:all 0.2s;letter-spacing:0.02em;
+}
+.btn-primary:hover{background:var(--flame-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,86,10,0.3)}
+.btn-ghost{
+  background:transparent;color:var(--text-muted);
+  border:1px solid var(--border2);font-family:'DM Sans',sans-serif;
+  font-size:0.875rem;font-weight:500;
+  padding:0.75rem 1.75rem;border-radius:var(--radius-sm);
+  cursor:pointer;transition:all 0.2s;
+}
+.btn-ghost:hover{color:var(--text);border-color:rgba(255,255,255,0.25);background:var(--surface2)}
+
+/* ─── STATS STRIP ─── */
+.stats-strip{
+  display:flex;justify-content:center;gap:0;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  background:var(--surface);
+}
+.stat-item{
+  flex:1;max-width:200px;text-align:center;
+  padding:1.5rem 1rem;
+  border-right:1px solid var(--border);
+}
+.stat-item:last-child{border-right:none}
+.stat-num{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--gold)}
+.stat-label{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-dim);margin-top:0.2rem}
+
+/* ─── SECTION ─── */
+.section{padding:4.5rem 2rem}
+.section-inner{max-width:1080px;margin:0 auto}
+.section-header{margin-bottom:2.5rem;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.section-label{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--flame);margin-bottom:0.5rem}
+.section-header h2{font-family:'DM Serif Display',serif;font-size:clamp(1.6rem,3vw,2.2rem);color:var(--white)}
+.see-all{
+  font-size:0.82rem;color:var(--text-muted);background:none;
+  border:1px solid var(--border2);border-radius:6px;
+  padding:0.4rem 1rem;cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-weight:500;
+  transition:all 0.2s;white-space:nowrap;
+}
+.see-all:hover{color:var(--text);border-color:rgba(255,255,255,0.25)}
+
+/* ─── SERMON CARDS ─── */
+.sermons-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:1.25rem;
+}
+.sermon-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s;
+  cursor:pointer;
+}
+.sermon-card:hover{
+  transform:translateY(-4px);
+  border-color:var(--border2);
+  box-shadow:0 16px 40px rgba(0,0,0,0.4);
+}
+.sermon-cover{
+  width:100%;aspect-ratio:16/9;
+  position:relative;overflow:hidden;
+  background:var(--surface2);
+}
+.sermon-cover-img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.4s;
+}
+.sermon-card:hover .sermon-cover-img{transform:scale(1.04)}
+.sermon-cover-placeholder{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--surface2) 0%,var(--surface3) 100%);
+  position:relative;overflow:hidden;
+}
+.sermon-cover-placeholder::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 30%, rgba(232,86,10,0.2) 0%, transparent 60%);
+}
+.cover-cross{
+  width:40px;height:40px;position:relative;opacity:0.25;
+}
+.cover-cross::before,.cover-cross::after{
+  content:'';position:absolute;background:var(--gold);border-radius:2px;
+}
+.cover-cross::before{width:4px;height:100%;top:0;left:50%;transform:translateX(-50%)}
+.cover-cross::after{width:100%;height:4px;top:38%;left:0}
+.sermon-badge{
+  position:absolute;top:10px;left:10px;
+  font-size:0.65rem;font-weight:600;letter-spacing:0.1em;
+  text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:4px;
+}
+.badge-new{background:var(--flame);color:var(--white)}
+.badge-series{background:rgba(201,168,76,0.2);color:var(--gold);border:1px solid rgba(201,168,76,0.3)}
+.play-btn{
+  position:absolute;bottom:10px;right:10px;
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(12,12,14,0.85);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,0.1);
+  transition:background 0.2s,transform 0.2s;
+}
+.sermon-card:hover .play-btn{background:var(--flame);transform:scale(1.1)}
+.play-icon{
+  width:0;height:0;
+  border-style:solid;border-width:6px 0 6px 10px;
+  border-color:transparent transparent transparent var(--white);
+  margin-left:2px;
+}
+.sermon-info{padding:1.1rem 1.25rem 1.25rem}
+.sermon-meta-row{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem;flex-wrap:wrap}
+.series-tag{
+  font-size:0.65rem;font-weight:600;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--gold);
+  background:var(--gold-dim);padding:0.2rem 0.55rem;border-radius:3px;
+}
+.sermon-date-tag{font-size:0.75rem;color:var(--text-dim)}
+.sermon-title{
+  font-family:'DM Serif Display',serif;font-size:1.05rem;
+  color:var(--text);margin-bottom:0.4rem;line-height:1.35;
+}
+.sermon-pastor{font-size:0.8rem;color:var(--text-muted);margin-bottom:1rem}
+.sermon-pastor strong{color:var(--text-muted);font-weight:500}
+.audio-wrap{
+  background:var(--surface2);border-radius:var(--radius-sm);
+  padding:0.65rem 0.75rem;border:1px solid var(--border);
+}
+.audio-wrap audio{
+  width:100%;height:28px;display:block;
+  accent-color:var(--flame);
+}
+.sermon-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:0.85rem;margin-top:0.85rem;
+  border-top:1px solid var(--border);
+}
+.duration{font-size:0.75rem;color:var(--text-dim);display:flex;align-items:center;gap:0.4rem}
+.transcript-btn{
+  font-size:0.75rem;color:var(--gold);background:var(--gold-dim);
+  border:none;border-radius:4px;padding:0.25rem 0.65rem;
+  cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;
+  transition:background 0.2s;
+}
+.transcript-btn:hover{background:rgba(201,168,76,0.25)}
+
+/* ─── FILTER BAR ─── */
+.filter-bar{
+  display:flex;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap;
+}
+.filter-chip{
+  padding:0.4rem 1rem;border-radius:20px;
+  border:1px solid var(--border);background:transparent;
+  color:var(--text-muted);font-size:0.82rem;font-family:'DM Sans',sans-serif;
+  cursor:pointer;transition:all 0.2s;font-weight:500;
+}
+.filter-chip:hover{border-color:var(--border2);color:var(--text)}
+.filter-chip.active{background:var(--flame);border-color:var(--flame);color:var(--white)}
+
+/* ─── LATEST FEATURED SERMON ─── */
+.featured-sermon{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:2rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:2rem;
+  align-items:center;margin-bottom:3rem;
+}
+.featured-label{
+  font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--flame);margin-bottom:0.75rem;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.featured-label::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--flame);display:inline-block;
+  animation:pulse 1.8s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.featured-title{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(1.4rem,2.5vw,2rem);
+  color:var(--white);line-height:1.25;margin-bottom:0.75rem;
+}
+.featured-pastor{font-size:0.875rem;color:var(--text-muted);margin-bottom:1.5rem}
+.featured-audio{
+  background:var(--surface2);border-radius:var(--radius-sm);
+  padding:1rem 1.25rem;border:1px solid var(--border);
+}
+.featured-audio audio{width:100%;accent-color:var(--flame)}
+.featured-cover{
+  border-radius:var(--radius-sm);overflow:hidden;
+  aspect-ratio:4/3;
+  background:linear-gradient(135deg,var(--surface2),var(--surface3));
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.featured-cover::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 30%, rgba(232,86,10,0.25) 0%, transparent 65%);
+}
+.featured-cross{position:relative;z-index:1;opacity:0.2;width:80px;height:80px}
+.featured-cross::before,.featured-cross::after{
+  content:'';position:absolute;background:var(--gold);border-radius:4px;
+}
+.featured-cross::before{width:10px;height:100%;top:0;left:50%;transform:translateX(-50%)}
+.featured-cross::after{width:100%;height:10px;top:35%;left:0}
+
+/* ─── ANNOUNCEMENTS ─── */
+.ann-grid{display:grid;gap:1rem}
+.ann-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.5rem 1.75rem;
+  display:flex;gap:1.5rem;align-items:flex-start;
+  transition:border-color 0.2s,transform 0.15s;
+}
+.ann-card:hover{border-color:var(--border2);transform:translateX(3px)}
+.ann-card.pin{border-left:3px solid var(--flame)}
+.ann-dot-col{padding-top:0.3rem}
+.ann-dot{
+  width:38px;height:38px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:0.9rem;
+}
+.dot-event{background:rgba(232,86,10,0.12);color:var(--flame)}
+.dot-service{background:rgba(201,168,76,0.12);color:var(--gold)}
+.dot-urgent{background:rgba(208,36,42,0.12);color:var(--red)}
+.dot-info{background:rgba(100,140,200,0.12);color:#648CC8}
+.ann-body{flex:1}
+.ann-tag-row{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.5rem;flex-wrap:wrap}
+.ann-tag{
+  font-size:0.65rem;font-weight:600;letter-spacing:0.1em;
+  text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:3px;
+}
+.tag-event{background:rgba(232,86,10,0.12);color:var(--flame)}
+.tag-service{background:var(--gold-dim);color:var(--gold)}
+.tag-urgent{background:rgba(208,36,42,0.12);color:var(--red)}
+.tag-info{background:rgba(100,140,200,0.1);color:#648CC8}
+.ann-date{font-size:0.75rem;color:var(--text-dim)}
+.ann-card h3{
+  font-family:'DM Serif Display',serif;font-size:1.05rem;
+  color:var(--text);margin-bottom:0.4rem;line-height:1.4;
+}
+.ann-card p{font-size:0.875rem;color:var(--text-muted);line-height:1.65;margin-bottom:0.75rem}
+.ann-meta{display:flex;align-items:center;gap:1.25rem;font-size:0.78rem;color:var(--text-dim);flex-wrap:wrap}
+.ann-meta span{display:flex;align-items:center;gap:0.3rem}
+
+/* ─── TRANSCRIPT MODAL ─── */
+.modal-overlay{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(0,0,0,0.75);
+  backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;padding:1.5rem;
+}
+.modal-overlay.open{display:flex}
+.modal{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:var(--radius);width:100%;max-width:640px;
+  max-height:82vh;overflow-y:auto;
+  animation:slideUp 0.25s ease;
+}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.modal-header{
+  padding:1.5rem 1.75rem;border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;
+  position:sticky;top:0;background:var(--surface);z-index:1;
+}
+.modal-title{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--white);line-height:1.3}
+.modal-subtitle{font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem}
+.modal-close{
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text-muted);width:32px;height:32px;border-radius:6px;
+  font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all 0.2s;
+}
+.modal-close:hover{background:var(--surface3);color:var(--text)}
+.modal-body{padding:1.75rem;font-size:0.9rem;line-height:1.85;color:var(--text-muted)}
+.modal-body h4{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--text);margin:1.25rem 0 0.5rem}
+.modal-body h4:first-child{margin-top:0}
+.modal-body p{margin-bottom:1rem}
+
+/* ─── ACCESSIBILITY SECTION ─── */
+.access-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;
+}
+.access-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.5rem;
+  transition:border-color 0.2s;
+}
+.access-card:hover{border-color:var(--border2)}
+.access-icon{
+  width:44px;height:44px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;margin-bottom:1rem;
+}
+.access-card h4{font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:0.4rem}
+.access-card p{font-size:0.8rem;color:var(--text-muted);line-height:1.55}
+
+/* ─── FOOTER ─── */
+footer{
+  background:var(--surface);border-top:1px solid var(--border);
+  padding:3rem 2rem 2rem;
+}
+.footer-inner{max-width:1080px;margin:0 auto}
+.footer-top{
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;
+  padding-bottom:2rem;border-bottom:1px solid var(--border);margin-bottom:2rem;
+}
+.footer-brand .logo{margin-bottom:0.75rem}
+.footer-brand p{font-size:0.82rem;color:var(--text-muted);line-height:1.6;max-width:240px}
+.footer-col h5{
+  font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--text-dim);margin-bottom:1rem;
+}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:0.5rem}
+.footer-col a,.footer-col button{
+  font-size:0.85rem;color:var(--text-muted);text-decoration:none;
+  background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:color 0.2s;padding:0;
+}
+.footer-col a:hover,.footer-col button:hover{color:var(--text)}
+.footer-address{font-size:0.82rem;color:var(--text-muted);line-height:1.7}
+.social-row{display:flex;gap:0.75rem;margin-top:1rem}
+.social-btn{
+  display:flex;align-items:center;gap:0.45rem;
+  font-size:0.8rem;font-family:'DM Sans',sans-serif;font-weight:500;
+  color:var(--text-muted);background:var(--surface2);
+  border:1px solid var(--border);border-radius:6px;
+  padding:0.45rem 0.85rem;cursor:pointer;text-decoration:none;
+  transition:all 0.2s;
+}
+.social-btn:hover{border-color:var(--border2);color:var(--text)}
+.social-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}
+.footer-bottom{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+}
+.footer-copy{font-size:0.78rem;color:var(--text-dim)}
+
+/* ─── SERVICE TIMES ─── */
+.times-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;
+}
+.time-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.25rem 1.5rem;
+  border-left:3px solid var(--flame);
+}
+.time-day{font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--flame);margin-bottom:0.3rem}
+.time-name{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--text);margin-bottom:0.2rem}
+.time-hour{font-size:0.88rem;color:var(--text-muted)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:768px){
+  nav{padding:0 1rem}
+  .nav-links{display:none}
+  .featured-sermon{grid-template-columns:1fr;gap:1.25rem}
+  .featured-cover{aspect-ratio:16/9;order:-1}
+  .footer-top{grid-template-columns:1fr}
+  .stat-item{flex:1 1 80px}
+  .modal{max-height:95vh}
+}
+@media(max-width:480px){
+  .section{padding:3rem 1.25rem}
+  .hero{padding:4.5rem 1.25rem 3.5rem}
+  nav{height:56px}
+  .page{padding-top:56px}
+  .ann-card{flex-direction:column;gap:0.75rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#" onclick="showPage('home');return false">
+    <!-- SVG logo recreated from image: flame + cross + wordmark -->
+    <svg class="logo-svg" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Flame -->
+      <path d="M18 2C18 2 12 9 12 15c0 2.5 1.2 4.7 3 6.1C14.4 19 14 16.8 14 15c0 0 3 4 3 7 0 1.7-.7 3.2-1.8 4.3C16.5 26.7 18 27 18 27s6-3.5 6-10c0-4-2-8-6-15z" fill="#E8560A"/>
+      <path d="M18 12c0 0-3 4-3 8 0 2 1 4 3 5 2-1 3-3 3-5 0-4-3-8-3-8z" fill="#F07030" opacity="0.7"/>
+      <!-- Cross (vertical bar) -->
+      <rect x="16.5" y="18" width="3" height="13" rx="1" fill="#D0242A"/>
+      <!-- Cross (horizontal bar) -->
+      <rect x="12" y="22" width="12" height="3" rx="1" fill="#D0242A"/>
+    </svg>
+    <span class="logo-text">
+      <span class="ig">ignite</span>
+      <span class="ch">church</span>
+    </span>
+  </a>
+
+  <ul class="nav-links">
+    <li><button class="active" onclick="showPage('home')">Home</button></li>
+    <li><button onclick="showPage('sermons')">Sermons</button></li>
+    <li><button onclick="showPage('announcements')">Announcements</button></li>
+  </ul>
+  <button class="nav-cta" onclick="showPage('sermons')">Listen Now</button>
+</nav>
+
+<!-- ════════════════ HOME PAGE ════════════════ -->
+<div id="page-home" class="page active">
+
+  <section class="hero">
+    <div class="hero-grid-lines"></div>
+    <div class="hero-tag">
+      <span>&#9679;</span> Live Sundays — 9AM GMT
+    </div>
+    <h1>The Word that <em>Ignites</em><br/>the Soul</h1>
+    <p>Access sermons, announcements, and resources from Ignite Church — anytime, anywhere.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="showPage('sermons')">Browse Sermons</button>
+      <button class="btn-ghost" onclick="showPage('announcements')">Announcements</button>
+    </div>
+  </section>
+
+  <div class="stats-strip">
+    <div class="stat-item"><div class="stat-num">120+</div><div class="stat-label">Sermons</div></div>
+    <div class="stat-item"><div class="stat-num">8</div><div class="stat-label">Series</div></div>
+    <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">Speakers</div></div>
+    <div class="stat-item"><div class="stat-num">5K+</div><div class="stat-label">Listeners</div></div>
+  </div>
+
+  <!-- SERVICE TIMES -->
+  <section class="section" style="background:var(--surface);border-top:1px solid var(--border)">
+    <div class="section-inner">
+      <div class="section-header">
+        <div>
+          <div class="section-label">Join Us</div>
+          <h2>Service Times</h2>
+        </div>
+      </div>
+      <div class="times-grid">
+        <div class="time-card">
+          <div class="time-day">Sunday</div>
+          <div class="time-name">Morning Service</div>
+          <div class="time-hour">9:00 AM GMT</div>
+        </div>
+        <div class="time-card">
+          <div class="time-day">Sunday</div>
+          <div class="time-name">Second Service</div>
+          <div class="time-hour">11:00 AM GMT</div>
+        </div>
+        <div class="time-card">
+          <div class="time-day">Wednesday</div>
+          <div class="time-name">Prayer Night</div>
+          <div class="time-hour">7:00 PM GMT</div>
+        </div>
+        <div class="time-card">
+          <div class="time-day">Friday</div>
+          <div class="time-name">Bible Study</div>
+          <div class="time-hour">6:30 PM GMT</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LATEST SERMONS PREVIEW -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <div>
+          <div class="section-label">Recent Messages</div>
+          <h2>Latest Sermons</h2>
+        </div>
+        <button class="see-all" onclick="showPage('sermons')">View all sermons →</button>
+      </div>
+      <div class="sermons-grid" id="home-sermons"></div>
+    </div>
+  </section>
+
+  <!-- ACCESSIBILITY -->
+  <section class="section" style="background:var(--surface);border-top:1px solid var(--border)">
+    <div class="section-inner">
+      <div class="section-header">
+        <div>
+          <div class="section-label">For Everyone</div>
+          <h2>Accessibility Features</h2>
+        </div>
+      </div>
+      <div class="access-grid">
+        <div class="access-card">
+          <div class="access-icon" style="background:rgba(232,86,10,0.1)">📖</div>
+          <h4>Sermon Transcripts</h4>
+          <p>Full text transcripts available for every message — read along or search for key passages.</p>
+        </div>
+        <div class="access-card">
+          <div class="access-icon" style="background:rgba(201,168,76,0.1)">🎧</div>
+          <h4>Audio Only</h4>
+          <p>Optimised audio files that load fast on any connection — no video required.</p>
+        </div>
+        <div class="access-card">
+          <div class="access-icon" style="background:rgba(100,140,200,0.1)">📱</div>
+          <h4>Mobile First</h4>
+          <p>Fully responsive design — listen on your phone, tablet, or desktop with equal ease.</p>
+        </div>
+        <div class="access-card">
+          <div class="access-icon" style="background:rgba(60,180,120,0.1)">🌍</div>
+          <h4>Anytime Access</h4>
+          <p>All messages are archived and available 24/7 — catch up whenever works for you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ════════════════ SERMONS PAGE ════════════════ -->
+<div id="page-sermons" class="page">
+
+  <section class="section" style="padding-bottom:0;padding-top:3rem">
+    <div class="section-inner">
+      <div class="section-label">Messages</div>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,3.5vw,2.4rem);color:var(--white);margin-bottom:0.5rem">Sermons</h2>
+      <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:2.5rem">Listen to messages from Ignite Church. All sermons include a full transcript.</p>
+
+      <!-- FEATURED -->
+      <div class="featured-sermon">
+        <div>
+          <div class="featured-label">Latest Message</div>
+          <div class="featured-title">When the Path Is Unclear</div>
+          <div class="featured-pastor">Rev. Peter Ampofo &nbsp;·&nbsp; 4 May 2025 &nbsp;·&nbsp; Walking by Faith</div>
+          <div class="featured-audio">
+            <audio controls preload="none" style="width:100%;accent-color:#E8560A">
+              <source src="#" type="audio/mpeg"/>
+            </audio>
+          </div>
+          <button class="transcript-btn" style="margin-top:1rem;font-size:0.82rem;padding:0.45rem 1rem" onclick="openTranscript('t1')">Read Transcript ↗</button>
+        </div>
+        <div class="featured-cover">
+          <div class="featured-cross"></div>
+        </div>
+      </div>
+
+      <!-- FILTERS -->
+      <div class="filter-bar">
+        <button class="filter-chip active" onclick="filterS('all',this)">All</button>
+        <button class="filter-chip" onclick="filterS('faith',this)">Walking by Faith</button>
+        <button class="filter-chip" onclick="filterS('prayer',this)">Power of Prayer</button>
+        <button class="filter-chip" onclick="filterS('identity',this)">Identity in Christ</button>
+        <button class="filter-chip" onclick="filterS('grace',this)">Amazing Grace</button>
+      </div>
+
+      <div class="sermons-grid" id="all-sermons" style="margin-bottom:4rem"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════ ANNOUNCEMENTS PAGE ════════════════ -->
+<div id="page-announcements" class="page">
+  <section class="section" style="padding-top:3rem">
+    <div class="section-inner">
+      <div class="section-label">Updates</div>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,3.5vw,2.4rem);color:var(--white);margin-bottom:0.5rem">Announcements</h2>
+      <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:2.5rem">Church news, upcoming events, and important updates from Ignite Church Ghana.</p>
+
+      <div class="ann-grid">
+
+        <div class="ann-card pin">
+          <div class="ann-dot-col"><div class="ann-dot dot-urgent">📌</div></div>
+          <div class="ann-body">
+            <div class="ann-tag-row">
+              <span class="ann-tag tag-urgent">Urgent</span>
+              <span class="ann-date">11 May 2025</span>
+            </div>
+            <h3>Venue Change — Executive Sunday, 18th May</h3>
+            <p>Please note that the upcoming Executive Sunday service on 18th May will be held at Oswald House, Adenta SDA Bus Stop, Accra. All service times remain at 9AM GMT. Share this with your family and friends.</p>
+            <div class="ann-meta">
+              <span>📍 Oswald House, Adenta SDA Bus Stop, Accra, Ghana</span>
+              <span>⏰ 9:00 AM GMT</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ann-card">
+          <div class="ann-dot-col"><div class="ann-dot dot-event">🔥</div></div>
+          <div class="ann-body">
+            <div class="ann-tag-row">
+              <span class="ann-tag tag-event">Event</span>
+              <span class="ann-date">18 May 2025</span>
+            </div>
+            <h3>Executive Sunday Service</h3>
+            <p>Our special Executive Sunday gathering — a time of powerful worship, the Word, and fellowship. Rev. Peter Ampofo will be ministering. All are warmly welcome to attend.</p>
+            <div class="ann-meta">
+              <span>📍 Oswald House, Adenta SDA Bus Stop, Accra</span>
+              <span>⏰ 9:00 AM GMT</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ann-card">
+          <div class="ann-dot-col"><div class="ann-dot dot-event">🙌</div></div>
+          <div class="ann-body">
+            <div class="ann-tag-row">
+              <span class="ann-tag tag-event">Event</span>
+              <span class="ann-date">25 May 2025</span>
+            </div>
+            <h3>Youth Conference 2025</h3>
+            <p>A full-day gathering for young people — inspiring speakers, worship, and workshops designed for the next generation. Registration is open. Contact us via Instagram or TikTok to sign up.</p>
+            <div class="ann-meta">
+              <span>⏰ 10:00 AM – 5:00 PM GMT</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ann-card">
+          <div class="ann-dot-col"><div class="ann-dot dot-service">📖</div></div>
+          <div class="ann-body">
+            <div class="ann-tag-row">
+              <span class="ann-tag tag-service">New Series</span>
+              <span class="ann-date">1 Jun 2025</span>
+            </div>
+            <h3>New Sermon Series: "Rooted" — Beginning June</h3>
+            <p>We are launching a brand new 6-week sermon series exploring what it means to be deeply rooted in Christ amid the pressures of modern life. Subscribe on our social pages to be notified.</p>
+            <div class="ann-meta">
+              <span>📍 Oswald House, Adenta SDA Bus Stop, Accra</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ann-card">
+          <div class="ann-dot-col"><div class="ann-dot dot-info">🤲</div></div>
+          <div class="ann-body">
+            <div class="ann-tag-row">
+              <span class="ann-tag tag-info">Community</span>
+              <span class="ann-date">8 Jun 2025</span>
+            </div>
+            <h3>Outreach Day — Serving Adenta</h3>
+            <p>Join us as we step outside the walls of the church to serve our neighbourhood. Activities include food distribution, prayer walks, and community engagement. All volunteers welcome.</p>
+            <div class="ann-meta">
+              <span>⏰ 8:00 AM – 2:00 PM GMT</span>
+              <span>📍 Adenta, Accra</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER (shared via JS injection) -->
+
+<!-- TRANSCRIPT MODAL -->
+<div class="modal-overlay" id="transcript-modal" onclick="closeTranscript(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="modal-sermon-title">Sermon Title</div>
+        <div class="modal-subtitle" id="modal-sermon-meta">Pastor · Date · Series</div>
+      </div>
+      <button class="modal-close" onclick="closeTranscript(null,true)">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+const sermons=[
+  {id:'t1',series:'faith',title:'When the Path Is Unclear',pastor:'Rev. Peter Ampofo',date:'4 May 2025',duration:'42 min',badge:'new',transcript:`
+    <h4>Introduction</h4>
+    <p>There are moments in life when every plan we had dissolves — when the career we built shifts beneath us, when relationships break, when the future we imagined becomes unrecognisable. It is in precisely these moments that God does some of His most profound work.</p>
+    <h4>Point 1: The Nature of Uncertainty</h4>
+    <p>Proverbs 3:5-6 calls us to trust in the Lord with all of our heart, and to lean not on our own understanding. The Hebrew word translated "trust" — batach — carries the image of lying face down, completely surrendered. God does not ask us to understand the path; He asks us to trust the One who built it.</p>
+    <h4>Point 2: God in the Fog</h4>
+    <p>When the Israelites walked through the wilderness, they were led not by a map but by a pillar of cloud and fire. Uncertainty was the very environment through which God chose to reveal Himself most intimately. The fog was not the enemy — it was the meeting place.</p>
+    <h4>Conclusion</h4>
+    <p>Walk forward. Not because you can see the road, but because you know the One who does. The path that feels unclear is, in His hands, the most direct route to where He wants you to be.</p>
+  `},
+  {id:'t2',series:'prayer',title:'Persistent in Prayer',pastor:'Pastor Abena Mensah',date:'27 Apr 2025',duration:'38 min',badge:'',transcript:`
+    <h4>Opening</h4>
+    <p>Luke 18 opens with one of the most counter-cultural teachings of Jesus: a woman who would not stop coming to the unjust judge. Her persistence was not desperation — it was faith in the certainty of justice. Jesus said, "How much more will your Father in heaven respond to those who cry out to Him?"</p>
+    <h4>Why We Stop Praying</h4>
+    <p>We stop praying when we confuse God's silence with God's absence. We stop when we expect answers on our schedule. We stop when we do not believe our prayers matter. Each of these is a lie — confronted, again and again, by scripture.</p>
+    <h4>Conclusion</h4>
+    <p>Do not stop knocking. Not because God needs to be persuaded, but because prayer changes you — it aligns your heart, your hopes, and your attention to the One who holds the answer.</p>
+  `},
+  {id:'t3',series:'identity',title:'You Are Chosen',pastor:'Rev. Peter Ampofo',date:'20 Apr 2025',duration:'45 min',badge:'',transcript:`
+    <h4>Foundation Scripture</h4>
+    <p>1 Peter 2:9 — "But you are a chosen people, a royal priesthood, a holy nation, God's special possession." The word "chosen" here is eklektos — selected before the foundations of the world, not based on performance but on grace.</p>
+    <h4>The Identity Crisis</h4>
+    <p>The enemy's oldest strategy is to make you forget who you are. Before he tempts Jesus, he begins with "If you are the Son of God..." The attack always targets identity first. When you know who you are, no temptation holds the same power.</p>
+    <h4>Living Chosen</h4>
+    <p>Being chosen is not a title — it is a posture. It changes how you enter rooms, how you face failure, and how you love others. You do not strive for a seat at the table; you were placed at the head of it.</p>
+  `},
+  {id:'t4',series:'faith',title:'Faith That Moves Mountains',pastor:'Pastor Abena Mensah',date:'13 Apr 2025',duration:'36 min',badge:'',transcript:`
+    <h4>Matthew 17:20</h4>
+    <p>"If you have faith as small as a mustard seed, you can say to this mountain, 'Move from here to there,' and it will move." The mountain Jesus referenced was not metaphorical to the disciples — they were standing near one. Faith is meant to be applied to real, immovable things.</p>
+    <h4>Small Faith, Big God</h4>
+    <p>We obsess over the size of our faith when Jesus obsesses over the size of our God. The mustard seed is not praised for its power — it is praised for its growth. Faith exercised, however small, expands. The disciples did not have too little faith; they had untested faith.</p>
+    <h4>Application</h4>
+    <p>What is the mountain in front of you today? Name it. Speak to it. Not because you have enough faith, but because you serve a God who is more than enough.</p>
+  `},
+  {id:'t5',series:'prayer',title:'The Secret Place',pastor:'Rev. Peter Ampofo',date:'6 Apr 2025',duration:'41 min',badge:'',transcript:`
+    <h4>Matthew 6:6</h4>
+    <p>"But when you pray, go into your room, close the door and pray to your Father, who is unseen. Then your Father, who sees what is done in secret, will reward you." The secret place is not a location — it is a posture of the heart that seeks God away from audience.</p>
+    <h4>Why Private Prayer Matters</h4>
+    <p>Public worship is vital. But the depth of your private prayer life determines the quality of your public witness. What happens in secret becomes the reservoir from which everything else flows. David wrote his most powerful psalms alone. Jesus rose before dawn to be with the Father.</p>
+  `},
+  {id:'t6',series:'grace',title:'Grace Greater Than Our Sin',pastor:'Pastor Abena Mensah',date:'30 Mar 2025',duration:'39 min',badge:'',transcript:`
+    <h4>Romans 5:20</h4>
+    <p>"Where sin increased, grace increased all the more." Paul is not giving permission to sin — he is giving confidence to the broken. No failure is too great, no history too dark, no pattern too entrenched for the grace of God to reach.</p>
+    <h4>Grace Is Not Cheap</h4>
+    <p>Dietrich Bonhoeffer warned against cheap grace — grace without repentance, without transformation. But costly grace — the grace that acknowledges the full weight of sin and still says "I choose you" — that grace changes everything it touches.</p>
+    <h4>Conclusion</h4>
+    <p>You do not earn your way out of failure. You receive your way out. And receiving grace honestly — without minimising the sin or maximising the shame — is the beginning of genuine transformation.</p>
+  `}
+];
+
+function sermonCard(s){
+  return `<div class="sermon-card" data-series="${s.series}">
+    <div class="sermon-cover">
+      <div class="sermon-cover-placeholder">
+        <div class="cover-cross"></div>
+      </div>
+      ${s.badge==='new'?'<span class="sermon-badge badge-new">New</span>':''}
+      <span class="sermon-badge badge-series" style="top:${s.badge?'10px':'auto'};bottom:${s.badge?'auto':'10px'};left:10px">${s.series==='faith'?'Walking by Faith':s.series==='prayer'?'Power of Prayer':s.series==='identity'?'Identity in Christ':'Amazing Grace'}</span>
+      <div class="play-btn"><div class="play-icon"></div></div>
+    </div>
+    <div class="sermon-info">
+      <div class="sermon-meta-row">
+        <span class="sermon-date-tag">${s.date}</span>
+      </div>
+      <div class="sermon-title">${s.title}</div>
+      <div class="sermon-pastor">by <strong>${s.pastor}</strong></div>
+      <div class="audio-wrap">
+        <audio controls preload="none"><source src="#" type="audio/mpeg"/></audio>
+      </div>
+      <div class="sermon-footer">
+        <span class="duration">⏱ ${s.duration}</span>
+        <button class="transcript-btn" onclick="openTranscript('${s.id}')">Transcript ↗</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+const footer=`<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="logo" href="#" onclick="showPage('home');return false" style="margin-bottom:0.85rem;display:inline-flex">
+          <svg class="logo-svg" viewBox="0 0 36 36" fill="none">
+            <path d="M18 2C18 2 12 9 12 15c0 2.5 1.2 4.7 3 6.1C14.4 19 14 16.8 14 15c0 0 3 4 3 7 0 1.7-.7 3.2-1.8 4.3C16.5 26.7 18 27 18 27s6-3.5 6-10c0-4-2-8-6-15z" fill="#E8560A"/>
+            <path d="M18 12c0 0-3 4-3 8 0 2 1 4 3 5 2-1 3-3 3-5 0-4-3-8-3-8z" fill="#F07030" opacity="0.7"/>
+            <rect x="16.5" y="18" width="3" height="13" rx="1" fill="#D0242A"/>
+            <rect x="12" y="22" width="12" height="3" rx="1" fill="#D0242A"/>
+          </svg>
+          <span class="logo-text" style="margin-left:10px">
+            <span class="ig">ignite</span>
+            <span class="ch">church</span>
+          </span>
+        </a>
+        <p>A community set ablaze by the Word of God. Rooted in Accra, Ghana — reaching the world.</p>
+        <div class="social-row">
+          <a class="social-btn" href="https://www.instagram.com/ignitechurchghana" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            Instagram
+          </a>
+          <a class="social-btn" href="https://www.tiktok.com/@ignitechurchghana" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+            TikTok
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <ul>
+          <li><button onclick="showPage('home')">Home</button></li>
+          <li><button onclick="showPage('sermons')">Sermons</button></li>
+          <li><button onclick="showPage('announcements')">Announcements</button></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Visit Us</h5>
+        <div class="footer-address">
+          Oswald House<br/>
+          Adenta SDA Bus Stop<br/>
+          Accra, Ghana<br/><br/>
+          Sunday: 9AM & 11AM GMT<br/>
+          Wednesday: 7PM GMT
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2025 Ignite Church Ghana. All rights reserved.</span>
+      <span class="footer-copy">Follow us @ Ignite Church Ghana</span>
+    </div>
+  </div>
+</footer>`;
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  const map={home:0,sermons:1,announcements:2};
+  document.querySelectorAll('.nav-links button')[map[id]].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function filterS(series,btn){
+  document.querySelectorAll('.filter-chip').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#all-sermons .sermon-card').forEach(c=>{
+    c.style.display=(series==='all'||c.dataset.series===series)?'':'none';
+  });
+}
+
+function openTranscript(id){
+  const s=sermons.find(x=>x.id===id);
+  if(!s)return;
+  document.getElementById('modal-sermon-title').textContent=s.title;
+  document.getElementById('modal-sermon-meta').textContent=`${s.pastor} · ${s.date} · ${s.duration}`;
+  document.getElementById('modal-body').innerHTML=s.transcript;
+  document.getElementById('transcript-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeTranscript(e,force){
+  if(force||e.target===document.getElementById('transcript-modal')){
+    document.getElementById('transcript-modal').classList.remove('open');
+    document.body.style.overflow='';
+  }
+}
+
+// Render
+document.getElementById('home-sermons').innerHTML=sermons.slice(0,3).map(sermonCard).join('');
+document.getElementById('all-sermons').innerHTML=sermons.map(sermonCard).join('');
+
+// Append footer to each page
+['page-home','page-sermons','page-announcements'].forEach(id=>{
+  document.getElementById(id).insertAdjacentHTML('beforeend',footer);
+});
+</script>
+</body>
+</html>
