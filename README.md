@@ -3,6 +3,13 @@
 A serverless church content platform built on AWS for publishing audio sermons and church announcements in a more organized, accessible, and scalable way.
 
 ---
+
+## Live Demo
+
+[https://your-amplify-url.amplifyapp.com](https://main.d2aus9sftgy6sz.amplifyapp.com/)
+
+---
+
 ## Project Overview
 
 This project was designed to help a local church improve how sermons and announcements are shared with members and non-members.
