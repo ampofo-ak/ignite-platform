@@ -241,6 +241,7 @@ nav{
 }
 .sermon-pastor{font-size:0.8rem;color:var(--text-muted);margin-bottom:1rem}
 .sermon-pastor strong{color:var(--text-muted);font-weight:500}
+.sermon-description{font-size:0.82rem;color:var(--text-muted);line-height:1.6;margin-bottom:1rem}
 .audio-wrap{
   background:var(--surface2);border-radius:var(--radius-sm);
   padding:0.65rem 0.75rem;border:1px solid var(--border);
@@ -299,7 +300,8 @@ nav{
   font-size:clamp(1.4rem,2.5vw,2rem);
   color:var(--white);line-height:1.25;margin-bottom:0.75rem;
 }
-.featured-pastor{font-size:0.875rem;color:var(--text-muted);margin-bottom:1.5rem}
+.featured-pastor{font-size:0.875rem;color:var(--text-muted);margin-bottom:0.75rem}
+.featured-description{font-size:0.88rem;color:var(--text-muted);line-height:1.65;margin-bottom:1.25rem}
 .featured-audio{
   background:var(--surface2);border-radius:var(--radius-sm);
   padding:1rem 1.25rem;border:1px solid var(--border);
@@ -633,17 +635,15 @@ footer{
       <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:2.5rem">Listen to messages from Ignite Church. All sermons include a full transcript.</p>
 
       <!-- FEATURED -->
-      <div class="featured-sermon">
+      <div class="featured-sermon" id="featured-sermon">
         <div>
           <div class="featured-label">Latest Message</div>
-          <div class="featured-title">When the Path Is Unclear</div>
-          <div class="featured-pastor">Rev. Peter Ampofo &nbsp;·&nbsp; 4 May 2025 &nbsp;·&nbsp; Walking by Faith</div>
+          <div class="featured-title">Loading sermons...</div>
+          <div class="featured-pastor">Please wait while messages load.</div>
+          <div class="featured-description"></div>
           <div class="featured-audio">
-            <audio controls preload="none" style="width:100%;accent-color:#E8560A">
-              <source src="#" type="audio/mpeg"/>
-            </audio>
+            <audio controls preload="none" style="width:100%;accent-color:#E8560A"></audio>
           </div>
-          <button class="transcript-btn" style="margin-top:1rem;font-size:0.82rem;padding:0.45rem 1rem" onclick="openTranscript('t1')">Read Transcript ↗</button>
         </div>
         <div class="featured-cover">
           <div class="featured-cross"></div>
@@ -672,87 +672,7 @@ footer{
       <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,3.5vw,2.4rem);color:var(--white);margin-bottom:0.5rem">Announcements</h2>
       <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:2.5rem">Church news, upcoming events, and important updates from Ignite Church Ghana.</p>
 
-      <div class="ann-grid">
-
-        <div class="ann-card pin">
-          <div class="ann-dot-col"><div class="ann-dot dot-urgent">📌</div></div>
-          <div class="ann-body">
-            <div class="ann-tag-row">
-              <span class="ann-tag tag-urgent">Urgent</span>
-              <span class="ann-date">11 May 2025</span>
-            </div>
-            <h3>Venue Change — Executive Sunday, 18th May</h3>
-            <p>Please note that the upcoming Executive Sunday service on 18th May will be held at Oswald House, Adenta SDA Bus Stop, Accra. All service times remain at 9AM GMT. Share this with your family and friends.</p>
-            <div class="ann-meta">
-              <span>📍 Oswald House, Adenta SDA Bus Stop, Accra, Ghana</span>
-              <span>⏰ 9:00 AM GMT</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="ann-card">
-          <div class="ann-dot-col"><div class="ann-dot dot-event">🔥</div></div>
-          <div class="ann-body">
-            <div class="ann-tag-row">
-              <span class="ann-tag tag-event">Event</span>
-              <span class="ann-date">18 May 2025</span>
-            </div>
-            <h3>Executive Sunday Service</h3>
-            <p>Our special Executive Sunday gathering — a time of powerful worship, the Word, and fellowship. Rev. Peter Ampofo will be ministering. All are warmly welcome to attend.</p>
-            <div class="ann-meta">
-              <span>📍 Oswald House, Adenta SDA Bus Stop, Accra</span>
-              <span>⏰ 9:00 AM GMT</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="ann-card">
-          <div class="ann-dot-col"><div class="ann-dot dot-event">🙌</div></div>
-          <div class="ann-body">
-            <div class="ann-tag-row">
-              <span class="ann-tag tag-event">Event</span>
-              <span class="ann-date">25 May 2025</span>
-            </div>
-            <h3>Youth Conference 2025</h3>
-            <p>A full-day gathering for young people — inspiring speakers, worship, and workshops designed for the next generation. Registration is open. Contact us via Instagram or TikTok to sign up.</p>
-            <div class="ann-meta">
-              <span>⏰ 10:00 AM – 5:00 PM GMT</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="ann-card">
-          <div class="ann-dot-col"><div class="ann-dot dot-service">📖</div></div>
-          <div class="ann-body">
-            <div class="ann-tag-row">
-              <span class="ann-tag tag-service">New Series</span>
-              <span class="ann-date">1 Jun 2025</span>
-            </div>
-            <h3>New Sermon Series: "Rooted" — Beginning June</h3>
-            <p>We are launching a brand new 6-week sermon series exploring what it means to be deeply rooted in Christ amid the pressures of modern life. Subscribe on our social pages to be notified.</p>
-            <div class="ann-meta">
-              <span>📍 Oswald House, Adenta SDA Bus Stop, Accra</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="ann-card">
-          <div class="ann-dot-col"><div class="ann-dot dot-info">🤲</div></div>
-          <div class="ann-body">
-            <div class="ann-tag-row">
-              <span class="ann-tag tag-info">Community</span>
-              <span class="ann-date">8 Jun 2025</span>
-            </div>
-            <h3>Outreach Day — Serving Adenta</h3>
-            <p>Join us as we step outside the walls of the church to serve our neighbourhood. Activities include food distribution, prayer walks, and community engagement. All volunteers welcome.</p>
-            <div class="ann-meta">
-              <span>⏰ 8:00 AM – 2:00 PM GMT</span>
-              <span>📍 Adenta, Accra</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <div class="ann-grid" id="announcements-grid"></div>
     </div>
   </section>
 </div>
@@ -774,82 +694,225 @@ footer{
 </div>
 
 <script>
-const sermons=[
-  {id:'t1',series:'faith',title:'When the Path Is Unclear',pastor:'Rev. Peter Ampofo',date:'4 May 2025',duration:'42 min',badge:'new',transcript:`
-    <h4>Introduction</h4>
-    <p>There are moments in life when every plan we had dissolves — when the career we built shifts beneath us, when relationships break, when the future we imagined becomes unrecognisable. It is in precisely these moments that God does some of His most profound work.</p>
-    <h4>Point 1: The Nature of Uncertainty</h4>
-    <p>Proverbs 3:5-6 calls us to trust in the Lord with all of our heart, and to lean not on our own understanding. The Hebrew word translated "trust" — batach — carries the image of lying face down, completely surrendered. God does not ask us to understand the path; He asks us to trust the One who built it.</p>
-    <h4>Point 2: God in the Fog</h4>
-    <p>When the Israelites walked through the wilderness, they were led not by a map but by a pillar of cloud and fire. Uncertainty was the very environment through which God chose to reveal Himself most intimately. The fog was not the enemy — it was the meeting place.</p>
-    <h4>Conclusion</h4>
-    <p>Walk forward. Not because you can see the road, but because you know the One who does. The path that feels unclear is, in His hands, the most direct route to where He wants you to be.</p>
-  `},
-  {id:'t2',series:'prayer',title:'Persistent in Prayer',pastor:'Pastor Abena Mensah',date:'27 Apr 2025',duration:'38 min',badge:'',transcript:`
-    <h4>Opening</h4>
-    <p>Luke 18 opens with one of the most counter-cultural teachings of Jesus: a woman who would not stop coming to the unjust judge. Her persistence was not desperation — it was faith in the certainty of justice. Jesus said, "How much more will your Father in heaven respond to those who cry out to Him?"</p>
-    <h4>Why We Stop Praying</h4>
-    <p>We stop praying when we confuse God's silence with God's absence. We stop when we expect answers on our schedule. We stop when we do not believe our prayers matter. Each of these is a lie — confronted, again and again, by scripture.</p>
-    <h4>Conclusion</h4>
-    <p>Do not stop knocking. Not because God needs to be persuaded, but because prayer changes you — it aligns your heart, your hopes, and your attention to the One who holds the answer.</p>
-  `},
-  {id:'t3',series:'identity',title:'You Are Chosen',pastor:'Rev. Peter Ampofo',date:'20 Apr 2025',duration:'45 min',badge:'',transcript:`
-    <h4>Foundation Scripture</h4>
-    <p>1 Peter 2:9 — "But you are a chosen people, a royal priesthood, a holy nation, God's special possession." The word "chosen" here is eklektos — selected before the foundations of the world, not based on performance but on grace.</p>
-    <h4>The Identity Crisis</h4>
-    <p>The enemy's oldest strategy is to make you forget who you are. Before he tempts Jesus, he begins with "If you are the Son of God..." The attack always targets identity first. When you know who you are, no temptation holds the same power.</p>
-    <h4>Living Chosen</h4>
-    <p>Being chosen is not a title — it is a posture. It changes how you enter rooms, how you face failure, and how you love others. You do not strive for a seat at the table; you were placed at the head of it.</p>
-  `},
-  {id:'t4',series:'faith',title:'Faith That Moves Mountains',pastor:'Pastor Abena Mensah',date:'13 Apr 2025',duration:'36 min',badge:'',transcript:`
-    <h4>Matthew 17:20</h4>
-    <p>"If you have faith as small as a mustard seed, you can say to this mountain, 'Move from here to there,' and it will move." The mountain Jesus referenced was not metaphorical to the disciples — they were standing near one. Faith is meant to be applied to real, immovable things.</p>
-    <h4>Small Faith, Big God</h4>
-    <p>We obsess over the size of our faith when Jesus obsesses over the size of our God. The mustard seed is not praised for its power — it is praised for its growth. Faith exercised, however small, expands. The disciples did not have too little faith; they had untested faith.</p>
-    <h4>Application</h4>
-    <p>What is the mountain in front of you today? Name it. Speak to it. Not because you have enough faith, but because you serve a God who is more than enough.</p>
-  `},
-  {id:'t5',series:'prayer',title:'The Secret Place',pastor:'Rev. Peter Ampofo',date:'6 Apr 2025',duration:'41 min',badge:'',transcript:`
-    <h4>Matthew 6:6</h4>
-    <p>"But when you pray, go into your room, close the door and pray to your Father, who is unseen. Then your Father, who sees what is done in secret, will reward you." The secret place is not a location — it is a posture of the heart that seeks God away from audience.</p>
-    <h4>Why Private Prayer Matters</h4>
-    <p>Public worship is vital. But the depth of your private prayer life determines the quality of your public witness. What happens in secret becomes the reservoir from which everything else flows. David wrote his most powerful psalms alone. Jesus rose before dawn to be with the Father.</p>
-  `},
-  {id:'t6',series:'grace',title:'Grace Greater Than Our Sin',pastor:'Pastor Abena Mensah',date:'30 Mar 2025',duration:'39 min',badge:'',transcript:`
-    <h4>Romans 5:20</h4>
-    <p>"Where sin increased, grace increased all the more." Paul is not giving permission to sin — he is giving confidence to the broken. No failure is too great, no history too dark, no pattern too entrenched for the grace of God to reach.</p>
-    <h4>Grace Is Not Cheap</h4>
-    <p>Dietrich Bonhoeffer warned against cheap grace — grace without repentance, without transformation. But costly grace — the grace that acknowledges the full weight of sin and still says "I choose you" — that grace changes everything it touches.</p>
-    <h4>Conclusion</h4>
-    <p>You do not earn your way out of failure. You receive your way out. And receiving grace honestly — without minimising the sin or maximising the shame — is the beginning of genuine transformation.</p>
-  `}
-];
+const API_BASE_URL = 'https://98s79n35il.execute-api.eu-north-1.amazonaws.com';
+const SERMONS_ENDPOINT = `${API_BASE_URL}/sermons`;
+const ANNOUNCEMENTS_ENDPOINT = `${API_BASE_URL}/announcements`;
 
-function sermonCard(s){
-  return `<div class="sermon-card" data-series="${s.series}">
-    <div class="sermon-cover">
-      <div class="sermon-cover-placeholder">
-        <div class="cover-cross"></div>
+let sermons = [];
+let announcements = [];
+
+function escapeHTML(value = '') {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}
+
+function formatDate(value) {
+  if (!value) return '';
+  const date = new Date(`${value}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return escapeHTML(value);
+  return date.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric'
+  });
+}
+
+function unwrapDynamoValue(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return value;
+  if ('S' in value) return value.S;
+  if ('N' in value) return Number(value.N);
+  if ('BOOL' in value) return value.BOOL;
+  if ('NULL' in value) return null;
+  if ('L' in value) return value.L.map(unwrapDynamoValue);
+  if ('M' in value) return unwrapDynamoRecord(value.M);
+  return value;
+}
+
+function unwrapDynamoRecord(record) {
+  if (!record || typeof record !== 'object' || Array.isArray(record)) return record;
+  return Object.fromEntries(
+    Object.entries(record).map(([key, value]) => [key, unwrapDynamoValue(value)])
+  );
+}
+
+function normaliseApiList(payload) {
+  if (typeof payload?.body === 'string') {
+    try { return normaliseApiList(JSON.parse(payload.body)); }
+    catch (error) { console.error('Unable to parse API body:', error); }
+  }
+
+  const list = Array.isArray(payload) ? payload
+    : Array.isArray(payload?.items) ? payload.items
+    : Array.isArray(payload?.Items) ? payload.Items
+    : Array.isArray(payload?.sermons) ? payload.sermons
+    : Array.isArray(payload?.Sermons) ? payload.Sermons
+    : Array.isArray(payload?.announcements) ? payload.announcements
+    : Array.isArray(payload?.Announcements) ? payload.Announcements
+    : Array.isArray(payload?.data) ? payload.data
+    : [];
+
+  return list.map(unwrapDynamoRecord);
+}
+
+async function fetchJson(endpoint) {
+  const url = `${endpoint}${endpoint.includes('?') ? '&' : '?'}_=${Date.now()}`;
+  const response = await fetch(url, {
+    method: 'GET',
+    cache: 'no-store',
+    headers: { Accept: 'application/json' }
+  });
+
+  if (!response.ok) {
+    throw new Error(`Request failed: ${response.status} ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
+async function loadSermons() {
+  try {
+    const data = await fetchJson(SERMONS_ENDPOINT);
+    sermons = normaliseApiList(data)
+      .filter(sermon => sermon.published !== false)
+      .sort((a, b) => new Date(b.sermonDate || 0) - new Date(a.sermonDate || 0));
+
+    if (!sermons.length) console.warn('Sermons API returned no renderable records:', data);
+
+    renderFeaturedSermon(sermons.find(sermon => sermon.isFeatured) || sermons[0]);
+    renderSermons('home-sermons', sermons.slice(0, 3));
+    renderSermons('all-sermons', sermons);
+  } catch (error) {
+    console.error('Error loading sermons:', error);
+    renderFeaturedSermon(null);
+    renderEmptyState('home-sermons', 'Sermons are currently unavailable.');
+    renderEmptyState('all-sermons', 'Sermons are currently unavailable.');
+  }
+}
+
+async function loadAnnouncements() {
+  try {
+    const data = await fetchJson(ANNOUNCEMENTS_ENDPOINT);
+    announcements = normaliseApiList(data)
+      .filter(announcement => announcement.published !== false)
+      .sort((a, b) => new Date(b.publishDate || 0) - new Date(a.publishDate || 0));
+
+    if (!announcements.length) console.warn('Announcements API returned no renderable records:', data);
+
+    renderAnnouncements(announcements);
+  } catch (error) {
+    console.error('Error loading announcements:', error);
+    renderEmptyState('announcements-grid', 'Announcements are currently unavailable.');
+  }
+}
+
+function renderEmptyState(containerId, message) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = `<div class="ann-card"><div class="ann-body"><p>${escapeHTML(message)}</p></div></div>`;
+}
+
+function renderFeaturedSermon(sermon) {
+  const featured = document.getElementById('featured-sermon');
+  if (!featured) return;
+
+  if (!sermon) {
+    featured.innerHTML = `<div><div class="featured-label">Latest Message</div><div class="featured-title">No sermons available</div><div class="featured-pastor">Please check back later.</div></div><div class="featured-cover"><div class="featured-cross"></div></div>`;
+    return;
+  }
+
+  featured.innerHTML = `
+    <div>
+      <div class="featured-label">Latest Message</div>
+      <div class="featured-title">${escapeHTML(sermon.title)}</div>
+      <div class="featured-pastor">${escapeHTML(sermon.speaker)} &nbsp;·&nbsp; ${formatDate(sermon.sermonDate)}</div>
+      <div class="featured-description">${escapeHTML(sermon.description)}</div>
+      <div class="featured-audio">
+        <audio controls preload="none" style="width:100%;accent-color:#E8560A" src="${escapeHTML(sermon.audioUrl || '')}"></audio>
       </div>
-      ${s.badge==='new'?'<span class="sermon-badge badge-new">New</span>':''}
-      <span class="sermon-badge badge-series" style="top:${s.badge?'10px':'auto'};bottom:${s.badge?'auto':'10px'};left:10px">${s.series==='faith'?'Walking by Faith':s.series==='prayer'?'Power of Prayer':s.series==='identity'?'Identity in Christ':'Amazing Grace'}</span>
+    </div>
+    <div class="featured-cover">
+      ${sermon.thumbnailUrl ? `<img class="sermon-cover-img" src="${escapeHTML(sermon.thumbnailUrl)}" alt="${escapeHTML(sermon.title)} thumbnail" loading="lazy"/>` : '<div class="featured-cross"></div>'}
+    </div>`;
+}
+
+function sermonCard(sermon) {
+  const date = formatDate(sermon.sermonDate);
+  const id = escapeHTML(sermon.sermonID || sermon.id || sermon.title || '');
+
+  return `<div class="sermon-card" data-series="all" data-sermon-id="${id}">
+    <div class="sermon-cover">
+      ${sermon.thumbnailUrl
+        ? `<img class="sermon-cover-img" src="${escapeHTML(sermon.thumbnailUrl)}" alt="${escapeHTML(sermon.title)} thumbnail" loading="lazy"/>`
+        : `<div class="sermon-cover-placeholder"><div class="cover-cross"></div></div>`}
+      ${sermon.isFeatured ? '<span class="sermon-badge badge-new">Featured</span>' : ''}
       <div class="play-btn"><div class="play-icon"></div></div>
     </div>
     <div class="sermon-info">
       <div class="sermon-meta-row">
-        <span class="sermon-date-tag">${s.date}</span>
+        <span class="sermon-date-tag">${date}</span>
       </div>
-      <div class="sermon-title">${s.title}</div>
-      <div class="sermon-pastor">by <strong>${s.pastor}</strong></div>
+      <div class="sermon-title">${escapeHTML(sermon.title)}</div>
+      <div class="sermon-pastor">by <strong>${escapeHTML(sermon.speaker)}</strong></div>
+      <p class="sermon-description">${escapeHTML(sermon.description)}</p>
       <div class="audio-wrap">
-        <audio controls preload="none"><source src="#" type="audio/mpeg"/></audio>
-      </div>
-      <div class="sermon-footer">
-        <span class="duration">⏱ ${s.duration}</span>
-        <button class="transcript-btn" onclick="openTranscript('${s.id}')">Transcript ↗</button>
+        <audio controls preload="none" src="${escapeHTML(sermon.audioUrl || '')}"></audio>
       </div>
     </div>
   </div>`;
+}
+
+function renderSermons(containerId, sermonList) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  if (!sermonList.length) {
+    renderEmptyState(containerId, 'No sermons available yet.');
+    return;
+  }
+
+  container.innerHTML = sermonList.map(sermonCard).join('');
+}
+
+function announcementIcon(category = '') {
+  const value = category.toLowerCase();
+  if (value.includes('urgent')) return { dot: 'dot-urgent', tag: 'tag-urgent', icon: '📌' };
+  if (value.includes('service')) return { dot: 'dot-service', tag: 'tag-service', icon: '📖' };
+  if (value.includes('event')) return { dot: 'dot-event', tag: 'tag-event', icon: '🔥' };
+  return { dot: 'dot-info', tag: 'tag-info', icon: 'ℹ️' };
+}
+
+function announcementCard(announcement) {
+  const category = announcement.category || 'Update';
+  const icon = announcementIcon(category);
+  const isPinned = category.toLowerCase().includes('urgent');
+
+  return `<div class="ann-card${isPinned ? ' pin' : ''}">
+    <div class="ann-dot-col"><div class="ann-dot ${icon.dot}">${icon.icon}</div></div>
+    <div class="ann-body">
+      <div class="ann-tag-row">
+        <span class="ann-tag ${icon.tag}">${escapeHTML(category)}</span>
+        <span class="ann-date">${formatDate(announcement.publishDate)}</span>
+      </div>
+      <h3>${escapeHTML(announcement.title)}</h3>
+      <p>${escapeHTML(announcement.body)}</p>
+    </div>
+  </div>`;
+}
+
+function renderAnnouncements(announcementList) {
+  const container = document.getElementById('announcements-grid');
+  if (!container) return;
+
+  if (!announcementList.length) {
+    renderEmptyState('announcements-grid', 'No announcements available yet.');
+    return;
+  }
+
+  container.innerHTML = announcementList.map(announcementCard).join('');
 }
 
 const footer=`<footer>
@@ -870,14 +933,8 @@ const footer=`<footer>
         </a>
         <p>A community set ablaze by the Word of God. Rooted in Accra, Ghana — reaching the world.</p>
         <div class="social-row">
-          <a class="social-btn" href="https://www.instagram.com/ignitechurchghana" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            Instagram
-          </a>
-          <a class="social-btn" href="https://www.tiktok.com/@ignitechurchghana" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
-            TikTok
-          </a>
+          <a class="social-btn" href="https://www.instagram.com/ignitechurchghana" target="_blank" rel="noopener">Instagram</a>
+          <a class="social-btn" href="https://www.tiktok.com/@ignitechurchghana" target="_blank" rel="noopener">TikTok</a>
         </div>
       </div>
       <div class="footer-col">
@@ -923,15 +980,10 @@ function filterS(series,btn){
   });
 }
 
-function openTranscript(id){
-  const s=sermons.find(x=>x.id===id);
-  if(!s)return;
-  document.getElementById('modal-sermon-title').textContent=s.title;
-  document.getElementById('modal-sermon-meta').textContent=`${s.pastor} · ${s.date} · ${s.duration}`;
-  document.getElementById('modal-body').innerHTML=s.transcript;
-  document.getElementById('transcript-modal').classList.add('open');
-  document.body.style.overflow='hidden';
+function openTranscript(){
+  console.warn('Transcripts are not included in the sermon API response.');
 }
+
 function closeTranscript(e,force){
   if(force||e.target===document.getElementById('transcript-modal')){
     document.getElementById('transcript-modal').classList.remove('open');
@@ -939,13 +991,17 @@ function closeTranscript(e,force){
   }
 }
 
-// Render
-document.getElementById('home-sermons').innerHTML=sermons.slice(0,3).map(sermonCard).join('');
-document.getElementById('all-sermons').innerHTML=sermons.map(sermonCard).join('');
+document.addEventListener('DOMContentLoaded', () => {
+  ['page-home','page-sermons','page-announcements'].forEach(id=>{
+    document.getElementById(id).insertAdjacentHTML('beforeend',footer);
+  });
 
-// Append footer to each page
-['page-home','page-sermons','page-announcements'].forEach(id=>{
-  document.getElementById(id).insertAdjacentHTML('beforeend',footer);
+  renderEmptyState('home-sermons', 'Loading sermons...');
+  renderEmptyState('all-sermons', 'Loading sermons...');
+  renderEmptyState('announcements-grid', 'Loading announcements...');
+
+  loadSermons();
+  loadAnnouncements();
 });
 </script>
 </body>
